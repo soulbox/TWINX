@@ -1,0 +1,2 @@
+# TWINX
+Bluetooth Thermal Printer
