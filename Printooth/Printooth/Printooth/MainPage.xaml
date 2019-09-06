@@ -12,6 +12,7 @@
                     SelectedItem="{Binding SelectedDevice}" />
             <Entry Text="{Binding PrintMessage}"
                    Placeholder="Message"/>
+            <Label x:Name="lblurl"/>
             <Button Text="Print"
                     Command="{Binding PrintCommand}" Clicked="Button_Clicked"/>
         </StackLayout>

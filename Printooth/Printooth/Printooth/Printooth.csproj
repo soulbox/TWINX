@@ -10,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ESCPOS" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ViewModels\PrintPageViewModel.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

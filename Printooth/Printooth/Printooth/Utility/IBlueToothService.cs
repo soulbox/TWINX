@@ -9,5 +9,7 @@ namespace Printooth.Utility
     {
         IList<string> GetDeviceList();
         Task Print(string deviceName, string text);
+        Task Print(string deviceName, Byte[] bytes);
+
     }
 }
