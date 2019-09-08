@@ -15,6 +15,7 @@
             <Label x:Name="lblurl"/>
             <Button Text="Print"
                     Command="{Binding PrintCommand}" Clicked="Button_Clicked"/>
+            <Image x:Name="mybitimage" />
         </StackLayout>
     </ContentPage.Content>
 

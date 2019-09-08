@@ -12,6 +12,9 @@ namespace Printooth
     using ESCPOS;
     using ESCPOS.Utils;
     using System.Text.RegularExpressions;
+    using PrintoothCore.Model;
+    using System.Reflection;
+
     public partial class MainPage : ContentPage
     {
         PrintPageViewModel prinrpage = new PrintPageViewModel();
@@ -19,15 +22,30 @@ namespace Printooth
         public MainPage()
         {
             InitializeComponent();
+            prinrpage.SelectedDevice = "BT-II";
             picker.BindingContext = prinrpage;
+            var assembly = typeof(Fiş).GetTypeInfo().Assembly;
+            string resourceID = "PrintoothCore.Images.logo2.png";
+            var resStream = assembly.GetManifestResourceStream(resourceID);
+            mybitimage.Source = ImageSource.FromResource(resourceID, assembly);
 
         }
 
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            prinrpage.PrintMessage = ESCPOS();
-            await prinrpage.Print();
+            var fiş = new PrintoothCore.Model.Fiş();
+            PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(fiş);
+            var yaz = tw.Reciept;
+            
+            //var gg = FileImageSource.FromFile("logo2.png");
+            //var path = ((FileImageSource)gg).File;
+            //var image = new Image { Source = ImageSource.FromFile("PrintoothCore.Images.logo2.png") };
+            //prinrpage.PrintMessage = ESCPOS();
+            //prinrpage.PrintMessage = Encoding.UTF8.GetString(yaz, 0, yaz.Length);
+
+
+            await prinrpage.Print(yaz);
         }
 
         static string ESCPOS()
@@ -37,7 +55,7 @@ namespace Printooth
             byte[] array = new byte[0];
             byte[] font = { 27, 116 };
 
-            byte[] turkis = { 27,116, 43 };
+            byte[] turkis = { 27, 116, 43 };
             string tr = "ÖöÇçŞşİĞğÜü";
             array = array.Add(SelectCharacterFont(Font.B), new string('-', 42).ToBytes());
             for (byte i = 46; i < 255; i++)
@@ -84,29 +102,6 @@ namespace Printooth
 
 
             return Encoding.UTF8.GetString(array, 0, array.Length);
-        }
-        static List<string> Wrap(string text, int margin)
-        {
-            int start = 0, end;
-            var lines = new List<string>();
-            text = Regex.Replace(text, @"\s", " ").Trim();
-
-            while ((end = start + margin) < text.Length)
-            {
-                while (text[end] != ' ' && end > start)
-                    end -= 1;
-
-                if (end == start)
-                    end = start + margin;
-
-                lines.Add(text.Substring(start, end - start));
-                start = end + 1;
-            }
-
-            if (start < text.Length)
-                lines.Add(text.Substring(start));
-
-            return lines;
         }
     }
 

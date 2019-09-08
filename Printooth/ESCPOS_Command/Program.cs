@@ -11,58 +11,18 @@ namespace ESCPOS_Command
     using ESCPOS;
     using ESCPOS.Utils;
     using System.Text.RegularExpressions;
-
+    using PrintoothCore.Devices;
     class Program
     {
+        
         static void Main(string[] args)
         {
-            PrinterUtility.EscPosEpsonCommands.EscPosEpson obj = new PrinterUtility.EscPosEpsonCommands.EscPosEpson();
-            byte[] bytes = new byte[0];
-
-            var asdg = ESCPOS();
-            string sep = new String('-', 32) + "\n";
-            //bytes = PrintExtensions.AddBytes(bytes, obj.FontSelect.);
-            //bytes = PrintExtensions.AddBytes(bytes, obj.Cols.ToString("5"));
-            bytes = PrintExtensions.AddBytes(bytes, obj.Alignment.Center());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes(sep));
-            bytes = PrintExtensions.AddBytes(bytes, obj.Separator());
-
-            bytes = PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleWidth2());
-            bytes = PrintExtensions.AddBytes(bytes, obj.FontSelect.FontA());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("AVRUPA MERKEZ SERVİS HİZMETLERİ\n"));
-            bytes = PrintExtensions.AddBytes(bytes, obj.CharSize.Nomarl());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("AVRUPA MERKEZ SERVİS HİZMETLERİ\n"));
-            bytes = PrintExtensions.AddBytes(bytes, obj.CharSize.DoubleWidth2());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("AVRUPA VE ASYA ARIZA ONARIM EKİPLERİ MERKEZ SERVİS AMİRLİĞİ\n"));
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Avcılar / İstanbul\n"));
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("0212 690 64 44\n"));
-
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes(sep));
-            bytes = PrintExtensions.AddBytes(bytes, obj.QrCode.Print("5E327F1624", PrinterUtility.Enums.QrCodeSize.Medio));
-
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Fiş No: 5E327F1624\n"));
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes(sep));
-
-            bytes = PrintExtensions.AddBytes(bytes, obj.Alignment.Left());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Tüketici Bilgileri\n"));
-            bytes = PrintExtensions.AddBytes(bytes, obj.CharSize.Nomarl());
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Adı Soyadı:Kadir Aygün\n"));
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Telefonu  :534 852 40 46\n"));
-            bytes = PrintExtensions.AddBytes(bytes, Encoding.UTF8.GetBytes("Adresi    :Hamitler Mh. Melek Sk. Gül Apt. D:17 K.2 Osmangazi / Bursa\n"));
-
-
-            bytes = PrintExtensions.AddBytes(bytes, obj.Alignment.Left());
-            //bytes = PrintExtensions.AddBytes(bytes, obj.BarCode.Code128());
-            bytes = PrintExtensions.AddBytes(bytes, obj.Lf());
-            var a = string.Join("\n", Wrap("AVRUPA MERKEZ SERVİS HİZMETLERİ", 16));
-
-
-
-
-            string converted = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-            Console.WriteLine($"bytes=>[{converted}]{converted.Length}");
-
-            Console.ReadLine();
+            var fişs = new PrintoothCore.Model.Fiş();
+            Twinix tws = new Twinix(fişs);
+            
+     
+            //var str = Convert.ToBase64String(asd);
+         
         }
         static string ESCPOS()
         {

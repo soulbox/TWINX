@@ -72,7 +72,12 @@ namespace Printooth
 
             return _blueToothService.Print(SelectedDevice, PrintMessage);
         }
+        public Task Print(byte[] bytes)
+        {
 
+
+            return _blueToothService.Print(SelectedDevice, bytes);
+        }
         public PrintPageViewModel()
         {
             _blueToothService = DependencyService.Get<IBlueToothService>();
