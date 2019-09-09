@@ -18,9 +18,15 @@ namespace ESCPOS_Command
         static void Main(string[] args)
         {
             var fişs = new PrintoothCore.Model.Fiş();
-            Twinix tws = new Twinix(fişs);
+            //var tww = new TwinixV2();
             
-     
+
+            //DeviceManager<TwinixV2<Mo>> dev = new DeviceManager<TwinixV2>(fişs);
+
+
+            //dev.GetReciept();
+            
+            
             //var str = Convert.ToBase64String(asd);
          
         }

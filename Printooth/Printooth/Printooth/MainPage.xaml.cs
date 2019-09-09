@@ -36,7 +36,7 @@ namespace Printooth
         {
             var fiş = new PrintoothCore.Model.Fiş();
             PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(fiş);
-            var yaz = tw.Reciept;
+            var yaz = tw.GetReciept();
             
             //var gg = FileImageSource.FromFile("logo2.png");
             //var path = ((FileImageSource)gg).File;

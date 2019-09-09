@@ -8,39 +8,42 @@ namespace PrintoothCore.Devices
     using ESCPOS;
     using ESCPOS.Utils;
     using System.Linq;
-    using static Utils.Utils;
-    public class Twinix : DeviceBase
+    public class Twinix : Bases.DeviceManagerBase<Model.Fiş>
+        //where Modal :Model.ModelBase
     {
-        Model.Fiş Fiş;
-        readonly int FontAColumn, FontBcolumn, ImageMultiplier;
-        public Twinix(Model.Fiş fiş)
-        {           
-            Fiş = fiş;
-            FontAColumn = 32 ;
-            FontBcolumn = 42;
+        public Twinix(Model.Fiş modal)
+            :base(modal)
+        {                        
+            FontAColumn = 32;
+            FontBColumn = 42;
             ImageMultiplier = 380;
-            Reciept = RecieptFontA();
         }
-        byte[] RecieptFontA()
+        public override byte[] GetReciept()
+        {
+            return RecieptFontA();
+        }
+
+        internal override byte[] RecieptFontA()
         {
             var lineA = new string('-', FontAColumn).ToBytes();
             Reciept = Reciept.Add(
-                Fiş.Firma.Bitmap.Getlogo(ImageMultiplier),
+                Getlogo(Model.Firma.Bitmap,ImageMultiplier),
+                //Fiş.Bitmap.Getlogo(ImageMultiplier),
                 SelectPrintMode(PrintMode.EmphasizedOn),
                 SelectJustification(Justification.Center),
                 LF,
-                string.Join("\n", Wrap(Fiş.Firma.Ünvan, FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap(Model.Firma.Ünvan, FontAColumn)).ToBytes(),
                 SelectPrintMode(PrintMode.Reset),
                 LF,
-                string.Join("\n", Wrap(Fiş.Firma.Adress, FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap(Model.Firma.Adress, FontAColumn)).ToBytes(),
                 LF,
-                string.Join("\n", Wrap(Fiş.Firma.Tel, FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap(Model.Firma.Tel, FontAColumn)).ToBytes(),
                 LF,
                 lineA,
                 LF,
                 SelectPrintMode(PrintMode.EmphasizedOn),
-                PrintBarCode(BarCodeType.CODE128, Fiş.Firma.Barcode, 54),
-                Fiş.Firma.Barcode.ToBytes(),
+                PrintBarCode(BarCodeType.CODE128, Model.Firma.Barcode, 54),
+                Model.Firma.Barcode.ToBytes(),
                 LF,
                 lineA,
                 LF,
@@ -48,11 +51,11 @@ namespace PrintoothCore.Devices
                 "Müşteri Bilgileri".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Wrap($"Adı Soyadı:{Fiş.Müşter.AdSoyad}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"Adı Soyadı:{Model.Müşter.AdSoyad}", FontAColumn)).ToBytes(),
                 LF,
-                string.Join("\n", Wrap($"Telefon   :{Fiş.Müşter.Tel}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"Telefon   :{Model.Müşter.Tel}", FontAColumn)).ToBytes(),
                 LF,
-                string.Join("\n", Wrap($"Adres     :{Fiş.Müşter.Adress}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"Adres     :{Model.Müşter.Adress}", FontAColumn)).ToBytes(),
                 LF,
                 lineA,
                 LF,
@@ -60,9 +63,9 @@ namespace PrintoothCore.Devices
                 "Ziyaret Bilgileri".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Wrap($"İşlem / Teslim Tarihi:{Fiş.Ziyaret.TeslimTarihi}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"İşlem / Teslim Tarihi:{Model.Ziyaret.TeslimTarihi}", FontAColumn)).ToBytes(),
                 LF,
-                string.Join("\n", Wrap($"İşlem Bitiş Zamanı   :{Fiş.Ziyaret.BitişZamanı}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"İşlem Bitiş Zamanı   :{Model.Ziyaret.BitişZamanı}", FontAColumn)).ToBytes(),
                 LF,
                 lineA,
                 LF,
@@ -70,7 +73,7 @@ namespace PrintoothCore.Devices
                 "Müşteri Şikayeti".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Wrap($"{Fiş.Müşter.Şikayet}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"{Model.Müşter.Şikayet}", FontAColumn)).ToBytes(),
                 LF,
                 lineA,
                 LF,
@@ -78,7 +81,7 @@ namespace PrintoothCore.Devices
                 "Ürün Bilgileri".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Fiş.Ürün.ÜrünBilgileri
+                string.Join("\n", Model.Ürün.ÜrünBilgileri
                 .Select(x => string.Format("{0}\n", string.Join("\n", Wrap(x, FontAColumn)))).ToArray()).ToBytes(),
                 LF,
                 lineA,
@@ -87,12 +90,12 @@ namespace PrintoothCore.Devices
                 "Ücret Bilgileri".ToBytes(),
                 LF, LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Fiş.Ücret.Bilgiler.Select(x => string.Format("{0,-19}{1,10:N2} TL\n", x.Servis, x.Fiyat)).ToArray()).ToBytes(),
+                string.Join("\n", Model.Ücret.Bilgiler.Select(x => string.Format("{0,-19}{1,10:N2} TL\n", x.Servis, x.Fiyat)).ToArray()).ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.EmphasizedOn),
                 SelectJustification(Justification.Right), "Toplam".ToBytes(),
                 LF,
-                string.Format("{0:N2} TL", Fiş.Ücret.Bilgiler.Sum(x => x.Fiyat)).ToBytes(),
+                string.Format("{0:N2} TL", Model.Ücret.Bilgiler.Sum(x => x.Fiyat)).ToBytes(),
                 LF,
                 lineA,
                 LF,
@@ -100,9 +103,11 @@ namespace PrintoothCore.Devices
                 "Teknisyen Adı ve İmzası".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Wrap($"{Fiş.Teknisyen.AdSoyad}", FontAColumn)).ToBytes(),
-                LF, 
-                Fiş.Teknisyen.Bitmap.Getlogo(ImageMultiplier),
+                string.Join("\n", Wrap($"{Model.Teknisyen.AdSoyad}", FontAColumn)).ToBytes(),
+                LF,
+                //Fiş.Teknisyen.Bitmap.Getlogo(ImageMultiplier),
+                Getlogo(Model.Teknisyen.Bitmap, ImageMultiplier),
+
                 LF,
                 lineA,
                 LF,
@@ -110,28 +115,35 @@ namespace PrintoothCore.Devices
                 "Müşteri Adı ve İmzası".ToBytes(),
                 LF,
                 SelectPrintMode(PrintMode.Reset),
-                string.Join("\n", Wrap($"{Fiş.Müşter.AdSoyad}", FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap($"{Model.Müşter.AdSoyad}", FontAColumn)).ToBytes(),
                 LF,
-                Fiş.Müşter.Bitmap.Getlogo(ImageMultiplier),
+                //Fiş.Müşter.Bitmap.Getlogo(ImageMultiplier),
+                Getlogo(Model.Müşter.Bitmap, ImageMultiplier),
+
                 LF,
                 lineA,
                 LF, LF,
                 SelectJustification(Justification.Center),
-                string.Join("\n", Wrap(Fiş.Firma.Adress, FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap(Model.Firma.Adress, FontAColumn)).ToBytes(),
                 LF,
-                string.Join("\n", Wrap(Fiş.Firma.Tel, FontAColumn)).ToBytes(),
+                string.Join("\n", Wrap(Model.Firma.Tel, FontAColumn)).ToBytes(),
                 LF,
-                PrintQRCode(Fiş.Firma.Barcode, QRCodeModel.Model2, QRCodeCorrection.Percent30, QRCodeSize.Large),
+                PrintQRCode(Model.Firma.Barcode, QRCodeModel.Model2, QRCodeCorrection.Percent30, QRCodeSize.Large),
                 LF,
                 CarriageReturn,
                 CarriageReturn,
                 CarriageReturn
                 );
 
-
             return Reciept;
-        }       
+        }
 
- 
+        internal override byte[] RecieptFontB()
+        {
+            Reciept = Reciept.Add();
+            return Reciept;
+        }
     }
+
+    
 }

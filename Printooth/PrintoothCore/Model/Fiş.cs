@@ -8,7 +8,7 @@ using PrintoothCore.Utils;
 namespace PrintoothCore.Model
 {
 
-    public class Fiş
+    public class Fiş:ModelBase
     {
         public Fiş()
         {
@@ -22,19 +22,19 @@ namespace PrintoothCore.Model
             //string resourceID = "PrintoothCore.Images.logo2.png";
             //var resStream = assembly.GetManifestResourceStream(resourceID);
             //Bitmap = Utils.Utils.GetFromResource("logo2.png");
-
-
         }
-        public SKBitmap Bitmap { get; set; } = Utils.Utils.GetFromResource("krank.png");
+        //public SKBitmap Bitmap { get; set; } = Utils.Utils.GetFromResource("krank.png"); 
+
+
+    }
+    public abstract class ModelBase
+    {
         public Firma Firma { get; set; }
         public Müşteri Müşter { get; set; }
         public Teknisyen Teknisyen { get; set; }
         public Ücret Ücret { get; set; }
         public Ürün Ürün { get; set; }
         public Ziyaret Ziyaret { get; set; }
-
-
     }
-
 
 }

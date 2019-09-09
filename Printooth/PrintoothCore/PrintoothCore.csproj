@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Devices\DeviceBase.cs" />
+    <Compile Remove="Devices\IDeviceBase.cs" />
+    <Compile Remove="Devices\Twinix.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\krank.png" />
     <None Remove="Images\logo2.bmp" />
     <None Remove="Images\musteri.png" />

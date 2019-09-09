@@ -13,6 +13,7 @@ namespace PrintoothCore.Devices
     {
         public byte[] Reciept { get; set; } = new byte[0];
 
+
     }
 
 
