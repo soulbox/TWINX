@@ -9,14 +9,14 @@ namespace PrintoothCore.Devices
     using ESCPOS.Utils;
     using System.Linq;
     public class Twinix : Bases.DeviceManagerBase<Model.Fiş>
-        //where Modal :Model.ModelBase
+    //where Modal :Model.ModelBase
     {
         public Twinix(Model.Fiş modal)
-            :base(modal)
-        {                        
+            : base(modal)
+        {     // char width                   
             FontAColumn = 32;
             FontBColumn = 42;
-            ImageMultiplier = 380;
+            ImageMultiplier = 380; //380 dots max
         }
         public override byte[] GetReciept()
         {
@@ -27,7 +27,7 @@ namespace PrintoothCore.Devices
         {
             var lineA = new string('-', FontAColumn).ToBytes();
             Reciept = Reciept.Add(
-                Getlogo(Model.Firma.Bitmap,ImageMultiplier),
+                Getlogo(Model.Firma.Bitmap, ImageMultiplier),
                 //Fiş.Bitmap.Getlogo(ImageMultiplier),
                 SelectPrintMode(PrintMode.EmphasizedOn),
                 SelectJustification(Justification.Center),
@@ -140,10 +140,13 @@ namespace PrintoothCore.Devices
 
         internal override byte[] RecieptFontB()
         {
-            Reciept = Reciept.Add();
-            return Reciept;
+            throw new NotImplementedException();
+
+            //Reciept = Reciept.Add();
+            //return Reciept;
+
         }
     }
 
-    
+
 }

@@ -35,7 +35,7 @@ namespace PrintoothCore.Devices.Bases
             var bitmap = Bitmap;
             var threshold = 127;
             var index = 0;
-            double multiplier = Multiplier; // this depends on your printer model. for Beiyang you should use 1000
+            double multiplier = Multiplier; // this depends on your printer model. 
             double scale = (double)(multiplier / (double)bitmap.Width);
             int xheight = (int)(bitmap.Height * scale);
             int xwidth = (int)(bitmap.Width * scale);
