@@ -28,22 +28,31 @@ namespace Printooth
             string resourceID = "PrintoothCore.Images.logo2.png";
             var resStream = assembly.GetManifestResourceStream(resourceID);
             mybitimage.Source = ImageSource.FromResource(resourceID, assembly);
-
+            txtText.Text = "105B3BB5B2 - 253311";
         }
 
-
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void btnTextPrint(object sender, EventArgs e)
         {
-            var fiş = new PrintoothCore.Model.Fiş();
-            PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(fiş);
-            var yaz = tw.GetReciept();
+            //var fiş = new PrintoothCore.Model.Fiş();
+            //PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(fiş);
+            //var yaz = tw.GetReciept();
+            prinrpage.PrintMessage = txtText.Text;
 
-            prinrpage.PrintMessage += "";
+            await prinrpage.Print(tw.test(txtText.Text));
+        }
 
+        PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(new PrintoothCore.Model.Fiş());
+        private async void btnFontA(object sender, EventArgs e)
+        {
+            var yaz = tw.GetRecieptFontA();
             await prinrpage.Print(yaz);
         }
 
-      
+        private async void btnFontB(object sender, EventArgs e)
+        {
+            var yaz = tw.GetRecieptFontB();
+            await prinrpage.Print(yaz);
+        }
     }
 
 

@@ -22,7 +22,9 @@ namespace PrintoothCore.Devices.Bases
         internal byte[] Reciept { get; set; }
         internal abstract byte[] RecieptFontA();
         internal abstract byte[] RecieptFontB();
-        public abstract byte[] GetReciept();
+        public abstract byte[] GetRecieptFontA();
+        public abstract byte[] GetRecieptFontB();
+
         public static SKBitmap GetFromResource(string imagename)
         {
             var assembly = typeof(Model.ModelBase).GetTypeInfo().Assembly;

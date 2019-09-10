@@ -133,7 +133,23 @@ namespace PrintoothCore.Utils
 
             return lines;
         }
+        public static string ToENG(this string str)
+        {
 
+            return str
+                .Replace("İ","I")
+                .Replace("ı", "i")
+                .Replace("Ö", "O")
+                .Replace("ö", "o")
+                .Replace("Ş", "S")
+                .Replace("ş", "s")
+                .Replace("Ğ", "G")
+                .Replace("ğ", "g")
+                .Replace("Ü", "U")
+                .Replace("ü", "u")
+                .Replace("Ç", "C")
+                .Replace("ç", "c");
+        }
         class BitmapData
         {
             public BitArray Dots

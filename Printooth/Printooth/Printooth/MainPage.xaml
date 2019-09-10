@@ -11,11 +11,13 @@
                     ItemDisplayBinding="{Binding .}"
                     SelectedItem="{Binding SelectedDevice}" />
             <Entry Text="{Binding PrintMessage}"
-                   Placeholder="Message"/>
+                   Placeholder="Message"
+                   x:Name="txtText"/>
             <Label x:Name="lblurl"/>
-            <Button Text="Print"
-                    Command="{Binding PrintCommand}" Clicked="Button_Clicked"/>
-            <Image x:Name="mybitimage" />
+            <Button Text="Print Text" Clicked="btnTextPrint"/>
+            <Button Text="Printooth Font A" Clicked="btnFontA"/>
+            <Button Text="Printooth Font B" Clicked="btnFontB"/>
+            <Image x:Name="mybitimage" Aspect="AspectFit" />
         </StackLayout>
     </ContentPage.Content>
 

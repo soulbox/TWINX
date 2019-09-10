@@ -15,6 +15,9 @@
     <None Remove="Images\logo2.bmp" />
     <None Remove="Images\musteri.png" />
     <None Remove="Images\Teknisyen.png" />
+    <None Remove="Images\test1.jpeg" />
+    <None Remove="Images\test2.jpeg" />
+    <None Remove="Images\testimage.jpeg" />
     <None Remove="logo2.png" />
   </ItemGroup>
 
@@ -24,6 +27,9 @@
     <EmbeddedResource Include="Images\logo2.png" />
     <EmbeddedResource Include="Images\musteri.png" />
     <EmbeddedResource Include="Images\Teknisyen.png" />
+    <EmbeddedResource Include="Images\test1.jpeg" />
+    <EmbeddedResource Include="Images\test2.jpeg" />
+    <EmbeddedResource Include="Images\testimage.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
