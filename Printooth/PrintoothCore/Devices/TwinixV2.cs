@@ -32,20 +32,38 @@ namespace PrintoothCore.Devices
 
         }
 
-        public byte[] TestBarcode(string barcode) => Reciept=Reciept
-            .Add(SelectJustification(Justification.Center),
-            PrintBarCode(BarCodeType.CODE128, barcode, 60),
-            barcode.ToBytes(),
-            CarriageReturn,
-            CarriageReturn,
-            CarriageReturn);
+        public byte[] TestBarcode(string barcode, int high)
+        {
+            Reciept = new byte[0];
+            Reciept = Reciept
+                .Add(
+                 SelectJustification(Justification.Center),
+                 SelectPrintMode(PrintMode.EmphasizedOn),
+                PrintBarCode(BarCodeType.CODE128, barcode, high),
+                 CarriageReturn,
+                barcode.ToBytes(),
+                 CarriageReturn,
+                 CarriageReturn,
+                 CarriageReturn);
+            return Reciept;
+        }
         public byte[] TestQrcode(string qrcode) => Reciept = Reciept
        .Add(SelectJustification(Justification.Center),
-       PrintQRCode(qrcode,qrCodeSize:QRCodeSize.Large),
+       PrintQRCode(qrcode, qrCodeSize: QRCodeSize.Large),
        CarriageReturn,
        CarriageReturn,
        CarriageReturn);
-
+        public byte[] TestImage()
+        {
+            Reciept = new byte[0];
+            Reciept = Reciept
+                .Add(Getlogo(Model.Firma.Bitmap, ImageMultiplier),
+                Getlogo(GetFromResource("MainTest.jpeg"), ImageMultiplier),
+                 CarriageReturn,
+                 CarriageReturn,
+                 CarriageReturn);
+            return Reciept;
+        }
         internal override byte[] RecieptFontA()
         {
             Reciept = new byte[0];
@@ -67,7 +85,6 @@ namespace PrintoothCore.Devices
                 LF,
                 SelectPrintMode(PrintMode.EmphasizedOn),
                 PrintBarCode(BarCodeType.CODE128, Model.Firma.Barcode, 120),
-
                 Model.Firma.Barcode.ToBytes(),
                 LF,
                 lineA,
@@ -246,7 +263,7 @@ namespace PrintoothCore.Devices
                 LF,
                 LF,
                 SelectPrintMode(PrintMode.EmphasizedOn),
-                SelectJustification(Justification.Right), 
+                SelectJustification(Justification.Right),
                 "Toplam".ToBytes(),
                 LF,
                 string.Format("{0:N2} TL", Model.Ücret.Bilgiler.Sum(x => x.Fiyat)).ToBytes(),

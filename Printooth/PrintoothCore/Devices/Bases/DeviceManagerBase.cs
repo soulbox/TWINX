@@ -32,6 +32,7 @@ namespace PrintoothCore.Devices.Bases
             var resStream = assembly.GetManifestResourceStream(resourceID);
             return SKBitmap.Decode(resStream);
         }
+
         internal byte[] Getlogo( SKBitmap Bitmap, int Multiplier)
         {
             var bitmap = Bitmap;

@@ -37,8 +37,9 @@ namespace Printooth
             //PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(fiş);
             //var yaz = tw.GetReciept();
             prinrpage.PrintMessage = txtText.Text;
+            var yaz = tw.TestBarcode(txtText.Text,Convert.ToInt32(lblbarhigh.Text));
 
-            await prinrpage.Print(tw.test(txtText.Text));
+            await prinrpage.Print(yaz);
         }
 
         PrintoothCore.Devices.Twinix tw = new PrintoothCore.Devices.Twinix(new PrintoothCore.Model.Fiş());
@@ -52,6 +53,11 @@ namespace Printooth
         {
             var yaz = tw.GetRecieptFontB();
             await prinrpage.Print(yaz);
+        }
+
+        private async void BtnImageClick(object sender, EventArgs e)
+        {
+            await prinrpage.Print(tw.TestImage());
         }
     }
 

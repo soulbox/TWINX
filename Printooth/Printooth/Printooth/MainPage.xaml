@@ -14,9 +14,11 @@
                    Placeholder="Message"
                    x:Name="txtText"/>
             <Label x:Name="lblurl"/>
-            <Button Text="Print Text" Clicked="btnTextPrint"/>
-            <Button Text="Printooth Font A" Clicked="btnFontA"/>
-            <Button Text="Printooth Font B" Clicked="btnFontB"/>
+            <Entry Text="60" Placeholder="Barcode HIGH" x:Name="lblbarhigh"/>
+            <Button Text="BARCODE TEST" Clicked="btnTextPrint"/>
+            <Button Text="Image Test" Clicked="BtnImageClick"/>
+            <Button Text="PrIntooth Font A" Clicked="btnFontA"/>
+            <Button Text="PrIntooth Font B" Clicked="btnFontB"/>
             <Image x:Name="mybitimage" Aspect="AspectFit" />
         </StackLayout>
     </ContentPage.Content>

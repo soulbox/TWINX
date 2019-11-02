@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Images\krank.png" />
     <None Remove="Images\logo2.bmp" />
+    <None Remove="Images\MainTest.jpeg" />
     <None Remove="Images\musteri.png" />
     <None Remove="Images\Teknisyen.png" />
     <None Remove="Images\test1.jpeg" />
@@ -25,6 +26,7 @@
     <EmbeddedResource Include="Images\krank.png" />
     <EmbeddedResource Include="Images\logo2.bmp" />
     <EmbeddedResource Include="Images\logo2.png" />
+    <EmbeddedResource Include="Images\MainTest.jpeg" />
     <EmbeddedResource Include="Images\musteri.png" />
     <EmbeddedResource Include="Images\Teknisyen.png" />
     <EmbeddedResource Include="Images\test1.jpeg" />
