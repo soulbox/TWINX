@@ -32,11 +32,19 @@ namespace PrintoothCore.Devices
 
         }
 
-        public byte[] test(string barcode) => Reciept=Reciept
-            .Add(PrintBarCode(BarCodeType.CODE128, barcode, 60),
+        public byte[] TestBarcode(string barcode) => Reciept=Reciept
+            .Add(SelectJustification(Justification.Center),
+            PrintBarCode(BarCodeType.CODE128, barcode, 60),
+            barcode.ToBytes(),
             CarriageReturn,
             CarriageReturn,
             CarriageReturn);
+        public byte[] TestQrcode(string qrcode) => Reciept = Reciept
+       .Add(SelectJustification(Justification.Center),
+       PrintQRCode(qrcode,qrCodeSize:QRCodeSize.Large),
+       CarriageReturn,
+       CarriageReturn,
+       CarriageReturn);
 
         internal override byte[] RecieptFontA()
         {

@@ -22,9 +22,13 @@ namespace PrintoothCore.Model
             //string resourceID = "PrintoothCore.Images.logo2.png";
             //var resStream = assembly.GetManifestResourceStream(resourceID);
             //Bitmap = Utils.Utils.GetFromResource("logo2.png");
+
         }
         //public SKBitmap Bitmap { get; set; } = Utils.Utils.GetFromResource("krank.png"); 
+        private void deneme()
+        {
 
+        }
 
     }
     public abstract class ModelBase
